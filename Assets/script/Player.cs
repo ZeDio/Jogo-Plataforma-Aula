@@ -7,19 +7,23 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private float horizontal;
     private bool IsfaceIsright = true;
+    private Animator animator;
 
     private void Awake()
     {
        rb = GetComponent<Rigidbody2D>();
+       animator = this.GetComponent<Animator>()>;
     }
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
 
+        animator.SetFloat("speed", Mathf.Abs(horizontal));
+
         this.rb.velocity = new Vector2(horizontal * 8f, this.rb.velocity.y);
 
-        flip();
+     
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -35,9 +39,11 @@ public class Player : MonoBehaviour
         {
             Debug.Log("i dunno");
         }
+
+        Flip();
     }
 
-    private void flip()
+    private void Flip()
     {
         if (IsfaceIsright && horizontal <0f || !IsfaceIsright && horizontal > 0f) 
         {
